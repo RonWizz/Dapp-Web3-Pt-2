@@ -26,7 +26,9 @@ const Markets = () => {
           <option value={`${config[chainId].DApp.address},${config[chainId].mDAI.address}`}>DApp / mDAI</option>
         </select>
       ) : (
-
+        <div>
+          <p>Not Deployed to Network</p>
+        </div>
       )}
 
       <hr />
