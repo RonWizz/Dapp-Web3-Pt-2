@@ -12,6 +12,8 @@ const Balance = () => {
   const [token1TransferAmount, setToken1TransferAmount] = useState(0)
 
   const dispatch = useDispatch()
+  const provider = useSelector(state => state.provider.connection)
+  const account = useSelector(state => state.provider.account)
 
   const exchange = useSelector(state => state.exchange.contract)
   const exchangeBalances = useSelector(state => state.exchange.balances)
@@ -55,6 +57,11 @@ const Balance = () => {
       {/* Deposit/Withdraw Component 1 (DApp) */}
 
       <div className='exchange__transfers--form'>
+        <div className='flex-between'>
+          <p><small>Token</small><br /><img src={dapp} alt="Token Logo" />{symbols && symbols[0]}</p>
+          <p><small>Wallet</small><br />{tokenBalances && tokenBalances[0]}</p>
+          <p><small>Exchange</small><br />{exchangeBalances && exchangeBalances[0]}</p>
+        </div>
 
         <form onSubmit={(e) => depositHandler(e, tokens[0])}>
           <label htmlFor="token0">{symbols && symbols[0]} Amount</label>
