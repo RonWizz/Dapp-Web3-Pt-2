@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import TOKEN_ABI from '../abis/Token.json';
-import EXCHANGE_ABI from './abis/Exchange.json';
+import EXCHANGE_ABI from '../abis/Exchange.json';
 
 export const loadProvider = (dispatch) => {
   const connection = new ethers.providers.Web3Provider(window.ethereum)
@@ -83,6 +83,18 @@ export const transferTokens =  async (provider, exchange, transferType, token, a
   let transaction
 
   dispatch({ type: 'TRANSFER_REQUEST' })
+  try {
+    const signer = await provider.getSigner()
+    const amountToTransfer = ethers.utils.parseUnits(amount.toString(), 18)
 
+    transaction = await token.connect(signer).approve(exchange.address, amountToTransfer)
+    await transaction.wait()
+    transaction = await exchange.connect(signer).depositToken(token.address, amountToTransfer)
+
+    await transaction.wait()
+
+  } catch(error) {
+    dispatch({ type: 'TRANSFER_FAIL' })
+  }
 
 }
