@@ -14,10 +14,18 @@ const Order = () => {
 
   const dispatch = useDispatch()
   const sellRef = useRef(null)
-
+  const tabHandler = (e) => {
+    if(e.target.className !== buyRef.current.className) {
+      e.target.className = 'tab tab--active'
+      buyRef.current.className = 'tab'
+      setIsBuy(false)
+    } else {
+      e.target.className = 'tab tab--active'
+      sellRef.current.className = 'tab'
+      setIsBuy(true)
+    }
+  }
   
-
-
 
   const buyHandler = (e) => {
     e.preventDefault()
