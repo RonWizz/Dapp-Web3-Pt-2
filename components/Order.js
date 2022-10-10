@@ -13,7 +13,9 @@ const Order = () => {
   const exchange = useSelector(state => state.exchange.contract)
 
   const dispatch = useDispatch()
+  const sellRef = useRef(null)
 
+  
 
 
 
