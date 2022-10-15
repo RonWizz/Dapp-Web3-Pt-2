@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { myOpenOrdersSelector, myFilledOrdersSelector } from '../store/selectors'
 import sort from '../assets/sort.svg';
-
+import { cancelOrder } from '../store/interactions'
 
 const Transactions = () => {
   const [showMyOrders, setShowMyOrders] = useState(true)
@@ -30,7 +30,9 @@ const Transactions = () => {
     }
   }
 
-
+  const cancelHandler = (order) => {
+    cancelOrder(provider, exchange, order, dispatch)
+  }
 
   return (
     <div className="component exchange__transactions">
